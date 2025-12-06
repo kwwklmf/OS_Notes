@@ -1,0 +1,10 @@
+# /docs/_config.yml
+
+# 强制使用一个不需要复杂资产的简单主题
+theme: jekyll-theme-minimal
+
+# 排除不必要的文件，确保Pages只渲染Markdown
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules # 如果有
