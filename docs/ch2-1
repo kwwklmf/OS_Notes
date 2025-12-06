@@ -1,0 +1,158 @@
+# 操作系统结构（第一部分）
+
+## 目录
+（待完善）
+
+---
+
+
+## Chapter 2 Operating Structures (1)
+
+### 幻灯片 2
+
+User Operating System Interface - GUI User-friendly desktop metaphor interface Usually mouse, keyboard, and monitor Icons represent files, programs, actions, etc Various mouse buttons over objects in the interface cause various actions (provide information, options, execute function, open directory (known as a folder ) Invented at Xerox PARC Many systems now include both CLI and GUI interfaces Microsoft Windows is GUI with CLI “ command ” shell Apple Mac OS X is “ Aqua ” GUI interface with UNIX kernel underneath and shells available Unix and Linux have CLI with optional GUI interfaces (CDE, KDE, GNOME)。
+
+### 幻灯片 3
+
+Touchscreen Interfaces Touchscreen devices require new interfaces Mouse not possible or not desired Actions and selection based on gestures Virtual keyboard for text entry Voice commands。
+
+
+## The Mac OS X GUI
+
+### 幻灯片 5
+
+System Calls Programming interface to the services provided by the OS Typically written in a high-level language (C or C++) Mostly accessed by programs via a high-level Application Programming Interface ( API ) rather than direct system call use Three most common APIs are Win32 API for Windows, POSIX API for POSIX-based systems (including virtually all versions of UNIX, Linux, and Mac OS X) Java API for the Java virtual machine (JVM) Note that the system-call names used throughout this text are generic。
+
+### 幻灯片 6
+
+Example of System Calls System call sequence to copy the contents of one file to another file。
+
+### 幻灯片 7
+
+Example of Standard API。
+
+### 幻灯片 8
+
+System Call Implementation Typically, a number is  associated with each system call System-call interface maintains a table indexed according to these numbers The system call interface invokes  the intended system call in OS kernel and returns status of the system call and any return values The caller need know nothing about how the system call is implemented Just needs to obey API and understand what OS will do as a result call Most details of  OS interface hidden from programmer by API Managed by run-time support library (set of functions built into libraries included with compiler)。
+
+### 幻灯片 9
+
+API – System Call – OS Relationship。
+
+### 幻灯片 10
+
+System Call Parameter Passing Often, more information is required than simply identity of desired system call Exact type and amount of information vary according to OS and call Three general methods used to pass parameters to the OS Simplest:  pass the parameters in registers In some cases, may be more parameters than registers Parameters stored in a block , or table, in memory, and address of block passed as a parameter in a register This approach taken by Linux and Solaris Parameters placed, or pushed , onto the stack by the program and popped off the stack by the operating system Block and stack methods do not limit the number or length of parameters being passed。
+
+
+---
+
+### 幻灯片 11
+
+Parameter Passing via Table。
+
+### 幻灯片 12
+
+Outline Operating System Services User and Operating System-Interface System Calls System Services Linkers and Loaders Why Applications are Operating System Specific Design and Implementation Operating System Structure Building and Booting an Operating System Operating System Debugging。
+
+### 幻灯片 13
+
+Types of System Calls Process control create process, terminate process end, abort load, execute get process attributes, set process attributes wait for time wait event, signal event allocate and free memory Dump memory if error Debugger for determining bugs , single step execution Locks for managing access to shared data between processes。
+
+### 幻灯片 14
+
+File management create file, delete file open, close file read, write, reposition get and set file attributes Device management request device, release device read, write, reposition get device attributes, set device attributes logically attach or detach devices Information maintenance get time or date, set time or date get system data, set system data get and set process, file, or device attributes Types of System Calls (1)。
+
+### 幻灯片 15
+
+Types of System Calls (2) Communications create, delete communication connection send, receive messages if message passing model to host name or process name From client to server Shared-memory model create and gain access to memory regions transfer status information attach and detach remote devices Protection Control access to resources Get and set permissions Allow and deny user access。
+
+### 幻灯片 16
+
+Examples of Windows and Unix System Calls。
+
+### 幻灯片 17
+
+Standard C Library Example C program invoking printf () library call, which calls write() system call。
+
+### 幻灯片 18
+
+Example - Arduino Single-tasking No operating system Programs (sketch) loaded via USB into flash memory Single memory space Boot loader loads program Program exit -> shell reloaded (a) At system startup (b) Running a program。
+
+### 幻灯片 19
+
+Example - FreeBSD Unix variant Multitasking User login -> invoke user ’ s choice of shell Shell executes fork() system call to create process Executes exec() to load program into process Shell waits for process to terminate or continues with user commands Process exits with: code = 0 – no error code > 0 – error code。
+
+### 幻灯片 20
+
+System Services (1) System programs provide a convenient environment for program development and execution。
+
+They can be divided into File manipulation Status information sometimes stored in a file Programming language support Program loading and execution Communications Background services Application programs Most users ’ view of the operating system is defined by system programs, not the actual system calls。
+
+
+---
+
+### 幻灯片 21
+
+System Services (2) Provide a convenient environment for program development and execution Some of them are simply user interfaces to system calls; others are considerably more complex File management - Create, delete, copy, rename, print, dump, list, and generally manipulate files and directories Status information Some ask the system for info - date, time, amount of available memory, disk space, number of users Others provide detailed performance, logging, and debugging information Typically, these programs format and print the output to the terminal or other output devices Some systems implement  a registry - used to store and retrieve configuration information。
+
+### 幻灯片 22
+
+System Services (3) File modification Text editors to create and modify files Special commands to search contents of files or perform transformations of the text Programming-language support - Compilers, assemblers, debuggers and interpreters sometimes provided Program loading and execution - Absolute loaders, relocatable loaders, linkage editors, and overlay-loaders, debugging systems for higher-level and machine language Communications - Provide the mechanism for creating virtual connections among processes, users, and computer systems Allow users to send messages to one another ’ s screens, browse web pages, send electronic-mail messages, log in remotely, transfer files from one machine to another。
+
+
+## Objectives Identify services provided by an operating system Illustrate how system calls are used to
+
+### 幻灯片 24
+
+System Services (4) Background Services Launch at boot time Some for system startup, then terminate Some from system boot to shutdown Provide facilities like disk checking, process scheduling, error logging, printing Run in user context not kernel context Known as services , subsystems , daemons Application programs Don’t pertain to system Run by users Not typically considered part of OS Launched by command line, mouse click, finger poke。
+
+### 幻灯片 25
+
+Take a Break。
+
+### 幻灯片 26
+
+Operating System Services (1) Operating systems provide an environment for execution of programs and services to programs and users One set of operating-system services provides functions that are helpful to the user: User interface - Almost all operating systems have a user interface ( UI )。
+
+Varies between Command-Line ( CLI ) , Graphics User Interface ( GUI ) , touch-screen , Batch Program execution - The system must be able to load a program into memory and to run that program, end execution, either normally or abnormally (indicating error) I/O operations -  A running program may require I/O, which may involve a file or an I/O device File-system manipulation -  The file system is of particular interest。
+
+Programs need to read and write files and directories, create and delete them, search them, list file Information, permission management.。
+
+### 幻灯片 27
+
+Operating System Services (2) One set of operating-system services provides functions that are helpful to the user (Cont.): Communications – Processes may exchange information, on the same computer or between computers over a network Communications may be via shared memory or through message passing (packets moved by the OS) Error detection – OS needs to be constantly aware of possible errors May occur in the CPU and memory hardware, in I/O devices, in user program For each type of error, OS should take the appropriate action to ensure correct and consistent computing Debugging facilities can greatly enhance the user ’ s and programmer ’ s abilities to efficiently use the system。
+
+### 幻灯片 28
+
+Operating System Services (3) Another set of OS functions exists for ensuring the efficient operation of the system itself via resource sharing Resource allocation - When  multiple users or multiple jobs running concurrently, resources must be allocated to each of them Many types of resources -   CPU cycles, main memory, file storage, I/O devices。
+
+Logging - To keep track of which users use how much and what kinds of computer resources Protection and security - The owners of information stored in a multiuser or networked computer system may want to control use of that information, concurrent processes should not interfere with each other Protection involves ensuring that all access to system resources is controlled Security of the system from outsiders requires user authentication, extends to defending external I/O devices from invalid access attempts。
+
+### 幻灯片 29
+
+A View of Operating System Services。
+
+### 幻灯片 30
+
+Command Line interpreter CLI allows direct command entry Sometimes implemented in kernel, sometimes by systems program Sometimes multiple flavors implemented – shells Primarily fetches a command from user and executes it Sometimes commands built-in, sometimes just names of programs If the latter, adding new features doesn’ t require shell modification。
+
+
+---
+
+### 幻灯片 31
+
+Bourne Shell Command Interpreter。
+
+
+
+---
+
+## 总结
+
+本章共包含 31 张幻灯片，涵盖了以下主要内容：
+
+（待完善详细总结）
+
+---
+
+*本文档基于《操作系统概念》第10版 操作系统结构（第一部分）内容整理*
